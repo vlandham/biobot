@@ -1,6 +1,5 @@
 
 class FlowcellLane
-
   GENOME_TRANSLATIONS = {
     "Drosophila_melanogaster.BDGP5.4.54" => [/.*BDGP5.*/],
     "ce6" => [/ce6/],
