@@ -1,0 +1,40 @@
+# Logfile created on 2011-06-17 15:34:32 -0500 by logger.rb/25413
+D, [2011-06-17T15:34:32.600656 #98671] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-17T15:35:08.713946 #98673] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-17T15:35:08.714018 #98673] DEBUG -- : continue
+D, [2011-06-17T15:44:31.019934 #98695] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-17T15:44:31.020171 #98695] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-17T15:45:39.036321 #98706] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-17T15:45:39.036562 #98706] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-17T15:45:58.354418 #98707] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-17T15:45:58.354655 #98707] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-17T15:46:21.109287 #98709] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-17T15:46:21.109533 #98709] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-17T15:46:33.507659 #98710] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-17T15:46:33.507918 #98710] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-17T15:47:28.893538 #98711] DEBUG -- : Starting Flowcell: 70B8VAAXX
+D, [2011-06-17T15:47:28.893775 #98711] DEBUG -- : Flowcell 70B8VAAXX is valid
+D, [2011-06-17T15:52:57.825767 #98725] DEBUG -- : Starting Flowcell: 70B8VAAXX
+D, [2011-06-17T15:52:57.826011 #98725] DEBUG -- : Flowcell 70B8VAAXX is valid
+D, [2011-06-17T16:02:41.158209 #98760] DEBUG -- : Starting Flowcell: 70B8VAAXX
+D, [2011-06-17T16:03:04.462721 #98771] DEBUG -- : Starting Flowcell: 70B8VAAXX
+D, [2011-06-17T16:03:04.462975 #98771] DEBUG -- : Flowcell 70B8VAAXX is valid
+D, [2011-06-17T16:03:12.829956 #98772] DEBUG -- : Starting Flowcell: 70B8VAAXX
+D, [2011-06-17T16:03:12.830209 #98772] DEBUG -- : Flowcell 70B8VAAXX is valid
+D, [2011-06-17T16:03:23.971440 #98773] DEBUG -- : Starting Flowcell: 70B8VAAXX
+D, [2011-06-17T16:03:23.971693 #98773] DEBUG -- : Flowcell 70B8VAAXX is valid
+D, [2011-06-17T16:09:34.317315 #98789] DEBUG -- : Starting Flowcell: 70B8VAAXX
+D, [2011-06-17T16:09:34.317568 #98789] DEBUG -- : Flowcell 70B8VAAXX is valid
+D, [2011-06-20T10:08:00.101284 #655] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-20T10:08:00.124630 #655] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-20T10:08:47.457539 #656] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-20T10:08:47.457789 #656] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-20T10:09:55.370980 #657] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-20T10:09:55.371230 #657] DEBUG -- : Flowcell 123 is valid
+D, [2011-06-20T10:09:55.371793 #657] DEBUG -- : Creating config.txt in /solexa/*123/Data/Intensities/BaseCalls
+D, [2011-06-20T10:50:17.180012 #793] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-20T10:50:17.180298 #793] DEBUG -- : Creating config.txt in 
+D, [2011-06-20T10:50:49.299686 #795] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-20T10:50:49.299994 #795] DEBUG -- : Creating config.txt in 
+D, [2011-06-20T10:51:23.788939 #798] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-20T11:00:53.994439 #814] DEBUG -- : Starting Flowcell: 123
