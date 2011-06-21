@@ -11,6 +11,14 @@ describe Flowcell do
       f = Flowcell.new(VALID_FLOWCELL, MockLims::flowcell_lanes(VALID_FLOWCELL))
       f.class.should == Flowcell
     end
+  end
+
+  describe "path" do
+    it "should have correct paths" do
+      path = Dir.glob(File.join(Paths.root_path, "*#{VALID_FLOWCELL}"))[0]
+      f = Flowcell.new(VALID_FLOWCELL, MockLims::flowcell_lanes(VALID_FLOWCELL))
+      f.base_path.should == path
+    end
 
   end
 

@@ -38,3 +38,11 @@ D, [2011-06-20T10:50:49.299686 #795] DEBUG -- : Starting Flowcell: 123
 D, [2011-06-20T10:50:49.299994 #795] DEBUG -- : Creating config.txt in 
 D, [2011-06-20T10:51:23.788939 #798] DEBUG -- : Starting Flowcell: 123
 D, [2011-06-20T11:00:53.994439 #814] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-21T14:56:59.742558 #6194] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-21T14:58:20.190385 #6214] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-21T14:59:45.056449 #6228] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-21T15:02:24.741134 #6255] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-21T15:03:24.722322 #6270] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-21T15:03:41.052602 #6275] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-21T15:04:01.169430 #6286] DEBUG -- : Starting Flowcell: 123
+D, [2011-06-21T15:04:09.855774 #6293] DEBUG -- : Starting Flowcell: 123

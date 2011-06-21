@@ -7,6 +7,7 @@ require 'solexa/flowcell'
 require 'solexa/post_run'
 require 'solexa/start'
 require 'solexa/lims'
+require 'solexa/sample_sheet'
 
 module Solexa
   class App < Start

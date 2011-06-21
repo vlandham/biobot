@@ -1,0 +1,17 @@
+FCID,Lane,SampleID,SampleRef,Index,Description,Control,Recipe,Operator,SampleProject
+639PYAAXX,1,ctrl_Ribo-zero,dm3,CGATGT,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,1,dEll1_Ribo-zero,dm3,CAGATC,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,1,dIce1-5_Ribo-zero,dm3,CTTGTA,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,2,ctrl_Ribo-zero,dm3,CGATGT,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,2,dEll1_Ribo-zero,dm3,CAGATC,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,2,dIce1-5_Ribo-zero,dm3,CTTGTA,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,3,ctrl_Ribo-zero,dm3,CGATGT,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,3,dEll1_Ribo-zero,dm3,CAGATC,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,3,dIce1-5_Ribo-zero,dm3,CTTGTA,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,4,ctrl_Ribo-zero,dm3,CGATGT,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,4,dEll1_Ribo-zero,dm3,CAGATC,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,4,dIce1-5_Ribo-zero,dm3,CTTGTA,Illumina index,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,5,Trr-570,dm3,,,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,6,Pool_1_5-20-11,dm3,,Custom barcode,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,7,Pool_2_5-20-11,dm3,,Custom barcode,N,45 bp plus the 7bp indexes,knw,Project
+639PYAAXX,8,PhiX,phiXSquashes,,,Y,45 bp plus the 7bp indexes,knw,Project

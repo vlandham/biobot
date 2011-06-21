@@ -1,13 +1,15 @@
 require 'solexa/constants'
 
-
 class Flowcell
 
-  attr_reader :id, :path, :lanes
+  attr_reader :id, :base_path, :basecalls_path, :unaligned_path, :aligned_path, :lanes
 
   def initialize id, raw_lanes
     @id = id
-    @path = find_path
+    @base_path = find_path
+    @basecalls_path = File.join(@base_path, Paths.basecalls_path)
+    @unaligned_path = File.join(@base_path, Paths.unaligned_path)
+    @aligned_path = File.join(@base_path, Paths.aligned_path)
     all_lanes = process_lanes raw_lanes
     @lanes = combine_lanes all_lanes
   end
@@ -41,7 +43,7 @@ class Flowcell
   end
 
   def find_path
-    path_pattern = File.join(Paths.root_path, "*#{id}", Paths.basecalls_path)
+    path_pattern = File.join(Paths.root_path, "*#{id}")
     paths = Dir.glob(path_pattern)
     if paths.size > 1
       raise "ERROR: multiple matching flowcell paths:\n#{paths.inspect}"
