@@ -1,4 +1,4 @@
-require 'lib/constants'
+require 'lib/paths'
 require 'lib/flowcell'
 
 class AdminScripter
@@ -10,16 +10,39 @@ class AdminScripter
   end
 
   def create
-    move_existing_file
-    create_new_file
-    write_header
-    command = "cd /solexa/*#{@flowcell_id}/Data/Intensities/BaseCalls"
+    move_existing_admin_file
+    create_admin_file
+    write_admin_header
+
+    @flowcell = Flowcell.new @flowcell_id
+
+    command = "cd #{@flowcell.basecalls_path}"
     write command
     command = "#{Paths.script_path}/ngsquery.pl fc_lane_library_samples #{@flowcell_id}"
     write command
+
+    command = "#{Paths.pipeline_bin} create_config -f #{@flowcell_id} -o #{@flowcell.config_file_path}"
+    write command
+
+    config_content = @flowcell.to_s
+    config_content.split("\n").each {|line| write "# #{line}"}
+
+    command = configure_command
+    write command
+
+    command = "cd #{@flowcell_id.output_path}"
+    write command
+
+    command = "nohup make -j 8"
+    command += " POST_RUN_COMMAND=\"#{Paths.pipeline_bin} align -f #{@flowcell.id}\""
+    command += " > ./make.out 2> make.err &"
+    write command
+
+    write_admin_footer
+    close_admin_file
   end
 
-  def move_existing_file
+  def move_existing_admin_file
     if File.exists? @scripts_file
       old_scripts_file_name = "#{@scripts_file}.old"
       puts "WARNING: #{@scripts_file} exists moving to #{old_scripts_file_name}"
@@ -27,75 +50,40 @@ class AdminScripter
     end
   end
 
-  def write_header
-	write "#!/bin/bash"
-	write "# #{@flowcell_id}"
-	write ""
+  def configure_command
+    params = {:basecalls_path => @flowcell.basecalls_path,
+              :output_path => @flowcell.unaligned_path,
+              :sample_sheet_path => @flowcell.sample_sheet_path}
+
+    command = File.expand_path(File.join(Paths.casava_bin_path, "configureBclToFastq.pl"))
+    command += " --input-dir #{options[:basecalls_path]}"
+    command += " --output-dir #{options[:output_path]}"
+    command += " --sample-sheet #{options[:sample_sheet_path]}"
+    command
   end
 
-  def execute command
-    results = %x[#{command}]
-    results.split("\n").each {|line| script_file << "# " << line << endl}
+  def write_admin_header
+	  write "#!/bin/bash"
+	  write "# #{@flowcell_id}"
+	  write ""
   end
 
-  def create_new_file
+  def write_admin_footer
+    write "# after complete, run this command and paste results to wiki page"
+    write "# fc_info #{flowcell_id}"
+    write ""
+  end
+
+  def create_admin_file
     @output_file = File.new(@scripts_file, 'w')
   end
 
-  def close_file
+  def close_admin_file
     @output_file.close
   end
 
   def write line
     @output_file << line << "\n"
   end
-
 end
 
-
-
-File.open(script_file_name, "w") do |script_file|
-	#this should probably be a template or something more formal. Oh well.
-
-
-	script_file << command << endl
-
-
-	script_file << endl << endl
-
-	command = "#{SCRIPT_PATH}/config_maker.rb #{flowcell_id}"
-
-	results = %x[#{command}]
-
-	# add the output file to the command as we want it
-	# to generate the file when we run this script for reals
-	command = command + " config.txt"
-
-	script_file << command << endl
-
-	results.split("\n").each {|line| script_file << "# " << line << endl}
-
-	script_file << endl
-
-	log_file = "#{LOGS_PATH}/#{flowcell_id}.log"
-	command = "touch #{log_file}"
-
-	script_file << command << endl
-
-	command = "echo 'eland_start, `date`' >> #{log_file}"
-
-	script_file << command << endl
-
-	command = "~/OLB-1.9.0/bin/setupBclToQseq.py -b /solexa/*#{flowcell_id}/Data/Intensities/BaseCalls --in-place --overwrite --GERALD ./config.txt"
-
-	script_file << endl
-	
-	script_file << command << endl << endl
-
-	command = "nohup make recursive -j 8 > ./make.out 2> make.err &"
-
-	script_file << command << endl << endl
-
-	script_file << "# after complete, run this command and paste results to wiki page" << endl
-	script_file << "# fc_info #{flowcell_id}" << endl << endl
-end

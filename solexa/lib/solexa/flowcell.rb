@@ -1,8 +1,10 @@
-require 'solexa/constants'
+require 'solexa/paths'
 
 class Flowcell
 
-  attr_reader :id, :base_path, :basecalls_path, :unaligned_path, :aligned_path, :lanes
+  attr_reader :id, :base_path, :basecalls_path, :unaligned_path, :aligned_path
+  attr_reader :sample_sheet_path, :config_file_path
+  attr_reader :lanes
 
   def initialize id, raw_lanes
     @id = id
@@ -10,6 +12,9 @@ class Flowcell
     @basecalls_path = File.join(@base_path, Paths.basecalls_path)
     @unaligned_path = File.join(@base_path, Paths.unaligned_path)
     @aligned_path = File.join(@base_path, Paths.aligned_path)
+    @sample_sheet_path = File.join(@basecalls_path, "SampleSheet.csv")
+    @config_file_path = File.join(@basecalls_path, "config.txt")
+    @pipeline_bin = File.join(Paths.script_path, "pipeline", "solexa")
     all_lanes = process_lanes raw_lanes
     @lanes = combine_lanes all_lanes
   end
@@ -19,7 +24,7 @@ class Flowcell
   end
 
   def to_s
-    template = ERB.new File.new("#{Paths::template_path}/config_template.erb").read, nil, "%<>"
+    template = ERB.new File.new(File.join(Paths::template_path,"config_template.erb")).read, nil, "%<>"
     template.result(binding)
   end
 

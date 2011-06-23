@@ -6,6 +6,6 @@ $:.unshift lib_path
 require 'solexa'
 
 
-Solexa::App.start
+Solexa::Commands.start
 
 

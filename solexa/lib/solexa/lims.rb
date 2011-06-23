@@ -46,4 +46,7 @@ EOS
     query
   end
 
+  def self.flowcell_distribution_query(flowcell_id)
+  end
+
 end

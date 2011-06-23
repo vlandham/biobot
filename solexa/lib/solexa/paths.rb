@@ -1,4 +1,5 @@
 class Paths
+  PIPELINE_BIN = File.join("/qcdata/SIMR_pipeline_scripts", "solexa")
   ADMIN_PATH = "/qcdata/Admin"
   CASAVA_BIN_PATH = "~/CASAVA_v1.8.0/bin"
   ROOT_PATH = "/solexa"
@@ -6,7 +7,8 @@ class Paths
   UNALIGNED_PATH = "/Unaligned"
   ALIGNED_PATH = "/Aligned"
   TEMPLATE_PATH = File.join(File.expand_path(File.dirname(__FILE__)), "..", "assests")
-  SCRIPT_PATH = File.join(File.expand_path(File.dirname(__FILE__)), "..", "scripts")
+  SCRIPT_PATH = "/qcdata/SIMR_pipeline_scripts"
+  #SCRIPT_PATH = File.join(File.expand_path(File.dirname(__FILE__)), "..", "scripts")
 
   def self.admin_path
     ADMIN_PATH
@@ -14,6 +16,10 @@ class Paths
 
   def self.script_path
     SCRIPT_PATH
+  end
+
+  def self.pipeline_bin
+    PIPELINE_BIN
   end
 
   def self.casava_bin_path
