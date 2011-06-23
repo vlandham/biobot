@@ -13,14 +13,15 @@ use Getopt::Long;
 
 my $names_file = "";
 my $output_dir = ".";
-my ($verbose, $help,  $skip, $auto_out);
-
+my ($verbose, $help,  $skip, $auto_out) ;
+my $files_pattern = "*{sequence,qseq}*.{txt,qc,fq}";
 my $result = GetOptions ("name=s" => \$names_file, #string
 	                     "verbose" => \$verbose, #bool
                        "skip" => \$skip, #bool
                        "auto-out" => \$auto_out, #bool
                        "out=s" => \$output_dir, #string
-                       "help" => \$help); #bool
+                       "help" => \$help,
+                       "files" =>\$files_pattern); 
 usage() if $help;
 
 sub usage
@@ -42,6 +43,8 @@ sub usage
 	print "           lims system says about this flowcell ID\n";
 	print "           Overrides --out flag if both are given.\n";
 	print "--skip - Do not run fastqc on the sequence data, only generate reports from a previous run\n";
+	print "\n";
+	print "--files FILE_PATTERN - The file pattern to run fastqc on. Defaults to *sequence / *qseq files\n";
 	print "\n";
 	print "-h - Print this message\n";
 	print "\n";
@@ -141,13 +144,12 @@ $output_dir = $output_dir . "/fastqc";
 
 #run fastqc on all sequence files in dir
 print "Running fastqc on sequence files\n" if $verbose;
-my $sequence_match = "*{sequence,qseq}*.{txt,qc,fq}";
 
 unless( $skip ) #skip input flag will skip running fastqc
 {
 	# here we run fastqc on all files with 'sequence' in the 
 	# a more complete match might be necessary.
-	`fastqc $sequence_match -o $output_dir -t 8`;
+	`fastqc $files_pattern -o $output_dir -t 8`;
 }
 
 #remove archives. 
@@ -155,7 +157,7 @@ unless( $skip ) #skip input flag will skip running fastqc
 `rm -f $output_dir/*fastqc.zip`;
 
 #get names of sequence files
-my $sequence_files = `ls $sequence_match | sed "s/ \+//g"`;
+my $sequence_files = `ls $files_pattern | sed "s/ \+//g"`;
 my @files = split("\n",$sequence_files);
 
 print "Generating fastqc_summary.htm\n" if $verbose;
