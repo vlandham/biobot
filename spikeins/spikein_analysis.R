@@ -1,5 +1,8 @@
-setwd('/Volumes/core/Bioinformatics/analysis/Trainor/kei/trainor_2011_05_09/')
-spikes <- read.table("spikeins/gene_exp.diff", quote = '', header = T, sep = '\t', skip = 0, comment.char = "")
+setwd('/Volumes/core/Bioinformatics/analysis/LinhengLi/rsu/li_linheng_2011_07_12/')
+gene_name <- "lsk30_gene_exp.diff"
+gene_file <- paste("spikeins/", gene_name, sep = "")
+output_prefix <- "analysis/spikeins_"
+spikes <- read.table(gene_file, quote = '', header = T, sep = '\t', skip = 0, comment.char = "")
 spikes$log2.fold_change <- log2(spikes$value_1 / spikes$value_2)
 expected <- read.table("spikeins/expected.txt", quote = '', header = T, sep = '\t', skip = 0, comment.char = "")
 spikes.all <- merge(spikes, expected, by.x = "gene_id", by.y = "ERCC.ID", sort = F)
@@ -31,36 +34,61 @@ spikes.plot$color[spikes.plot$group == "A"] <- "red"
 spikes.plot$color[spikes.plot$group == "B"] <- "green"
 spikes.plot$color[spikes.plot$group == "C"] <- "blue"
 spikes.plot$color[spikes.plot$group == "D"] <- "darkgoldenrod"
-
+spikes.plot <- replace.missing(spikes.plot, "actual_log2_fold_change", 0)
+fit <- lm(spikes.plot$actual_log2_fold_change ~ spikes.plot$expected_log2_fold_change, data = spikes.plot)
 
 #plot(spikes.plot$expected_log2_fold_change, spikes.plot$actual_log2_fold_change, col = spikes.plot$color, xlab = "Log2(expected fold-change)", ylab = "Log2(RPKM Mix 1: Mix 2)")
 
 #min.value <- min(spikes.plot[spikes.plot$log2.fold_change > -Inf,]$log2.fold_change, na.rm = TRUE) - 0.5
-spikes.plot <- replace.missing(spikes.plot, "actual_log2_fold_change", 0)
+
+filename <- paste(output_prefix, "log2_expected_vs_actual_", gene_name, ".png", sep = "")
+png(filename, height=500, width=800)
 plot(spikes.plot$expected_log2_fold_change, spikes.plot$actual_log2_fold_change, col = spikes.plot$color, xlab = "Log2(expected fold-change)", ylab = "Log2(RPKM Mix 1: Mix 2)")
-fit <- lm(spikes.plot$actual_log2_fold_change ~ spikes.plot$expected_log2_fold_change, data = spikes.plot)
 abline(fit)
-r.squared <- summary(fit)$r.squared
-text(1, -1, labels = "Slope = 0.95")
-text(1, -1.2, labels = "R2 = 0.88")
+lm.slope <- round(fit$coefficients[[2]], digits = 3)
+lm.y.intercept <- fit$coefficients[[1]]
+r.squared <- round(summary(fit)$r.squared, digits = 3)
+slope.text <- paste("Slope = ", lm.slope, sep = "")
+text(1, -0.5, labels = slope.text)
+r2.text <- paste("R2 = ", r.squared, sep = "")
+text(1, -0.7, labels = r2.text)
+dev.off()
+
+## MIX 1
 
 spikes.plot.con_1.filtered <- subset(spikes.plot, rpkm_1 >= 5.0)
 
+filename <- paste(output_prefix, "log2_expected_vs_actual_mix_1_", gene_name, ".png", sep = "")
+png(filename, height=500, width=800)
 plot(spikes.plot.con_1.filtered$log2.concentration_1, spikes.plot.con_1.filtered$log2.rpkm_1, col = spikes.plot.con_1.filtered$color, xlab = "Log2(pM) Mix 1", ylab = "Log2(RPKM Mix 1)")
 mix1.fit <- lm(spikes.plot.con_1.filtered$log2.rpkm_1 ~ spikes.plot.con_1.filtered$log2.concentration_1, data = spikes.plot.con_1.filtered)
 abline(mix1.fit)
-mix.1.fit.r.squared <- summary(mix1.fit)$r.squared
-text(7, 5, labels = "Slope = 0.97")
-text(7, 4, labels = "R2 = 0.94")
+mix.1.fit.r.squared <- round(summary(mix1.fit)$r.squared, digits = 3)
+mix1.lm.slope <- round(mix1.fit$coefficients[[2]], digits = 3)
+slope.text <- paste("Slope = ", mix1.lm.slope, sep = "")
+text(12, 10, labels = slope.text)
+r2.text <- paste("R2 = ", mix.1.fit.r.squared, sep = "")
+text(12, 9.4, labels = r2.text)
+dev.off()
+
+
+## MIX 2
 
 spikes.plot.con_2.filtered <- subset(spikes.plot, rpkm_2 >= 5.0)
 
+filename <- paste(output_prefix, "log2_expected_vs_actual_mix_2_", gene_name, ".png", sep = "")
+png(filename, height=500, width=800)
 plot(spikes.plot.con_2.filtered$log2.concentration_2, spikes.plot.con_2.filtered$log2.rpkm_2, col = spikes.plot.con_2.filtered$color, xlab = "Log2(pM) Mix 2", ylab = "Log2(RPKM Mix 2)")
 mix2.fit <- lm(spikes.plot.con_2.filtered$log2.rpkm_2 ~ spikes.plot.con_2.filtered$log2.concentration_2, data = spikes.plot)
 abline(mix2.fit)
-mix.2.fit.r.squared <- summary(mix2.fit)$r.squared
-text(7, 5, labels = "Slope = 0.99")
-text(7, 4, labels = "R2 = 0.93")
+mix2.lm.slope <- round(mix2.fit$coefficients[[2]], digits = 3)
+mix.2.fit.r.squared <- round(summary(mix2.fit)$r.squared, digits = 3)
+slope.text <- paste("Slope = ", mix2.lm.slope, sep = "")
+text(12, 10, labels = slope.text)
+r2.text <- paste("R2 = ", mix.2.fit.r.squared, sep = "")
+text(12, 9.4, labels = r2.text)
+dev.off()
 
 #max(spikes.plot.con_1.filtered$log2.concentration_1) - min(spikes.plot.con_1.filtered$log2.concentration_1)
+#filename <- paste(output_prefix, "log2_expected_vs_actual_mix_2", gene_name, ".png", sep = "")
 #legend(0, 2, levels(spikes.plot$group), cex=0.8, col=c("red", "green", "blue", "darkgoldenrod"), pch=21);
