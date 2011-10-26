@@ -1,11 +1,30 @@
 #!/usr/bin/env bash
 
+# Input Parameters
+# $1 - Lane number
+# $2 - Sample Name (no spaces, punctuation, etc)
+# $3 - ID (I just used lane number again)
+# $4 - Directory containing sequence files to align
+
+# Output 
+# Sorted, indexed BAM file.
+# File has had rmdup run on it to remove duplicates
+
+# WARNING: refFa needs to be specified below (use full path)
+# WARNING: Expects paired-end data
+# WARNING: expects followwing sequence file naming:
+#  s_[LANE]_1_sequence.txt.gz
+#  s_[LANE]_2_sequence.txt.gz
+# WARNING: assumes that you have created the bwa index for fasta file
+
 #reference fasta
-#assumes that you have created the bwa index
 #to create index (larger genome): bwa index -a bwtsw <ref.fa>
 #to create index (smaller genome): bwa index -a is <ref.fa>
-refFa="/scratch/jfv/mak_snp_analysis/ensembl/ce_ws210/genome.fa"
-refFai="/scratch/jfv/mak_snp_analysis/ensembl/ce_ws210/genome.fa.fai"
+# refFa="/scratch/jfv/mak_snp_analysis/ensembl/ce_ws210/genome.fa"
+# refFai="/scratch/jfv/mak_snp_analysis/ensembl/ce_ws210/genome.fa.fai"
+
+refFa="genome.fa"
+refFai="genome.fa.fai"
 
 ##max gap open and gap extensions, default 1, -1
 GapOpen=1
