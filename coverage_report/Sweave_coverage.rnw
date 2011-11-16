@@ -1,0 +1,92 @@
+\documentclass[12pt, a4paper]{exam}
+\usepackage[OT1]{fontenc}
+\usepackage{Sweave}
+\usepackage{placeins}
+\SweaveOpts{echo=FALSE}
+\usepackage{hyperref}            % for links (only use on final printed version
+\hypersetup{pdfpagelayout=SinglePage} % http://www.tug.org/applications/hyperref/ftp/doc/manual.html
+\setkeys{Gin}{width=0.8\textwidth}
+\pagestyle{headandfoot} % every page has a header and footer
+\header{}{Alignment Coverage Report}{}
+\footer{}{Page \thepage\ of \numpages}{}
+
+\begin{document}
+\title{Alignment Coverage Report}
+\author{Jim Vallandingham}
+
+\maketitle
+\begin{abstract}
+  This report summarizes the level of coverage found in the aligned reads of the BAM file used in downstream analysis. The coverage data was found using the Depth of Coverage v3.0 tool from the Broad Institute, which can be found here: \url{http://www.broadinstitute.org/gsa/wiki/index.php/Depth_of_Coverage_v3.0}.
+\end{abstract}
+
+<<prepare_data>>=
+prefix <- "../coverage_interval/sample_223b.interval.coverage"
+interval.size <- 5919568
+library(Hmisc)
+library(xtable)
+
+summary.file <- paste( prefix, ".sample_summary", sep='' )
+cumulative.proportions.file <- paste( prefix, ".sample_cumulative_coverage_proportions", sep='')
+stats.file <- paste(prefix, ".sample_statistics", sep='')
+
+summary.table <- read.table(summary.file, sep = "\t", header = TRUE, fill = TRUE)
+summary.table <- summary.table[1,]
+colnames(summary.table) <- c("name", "totalReads", "mean", "thirdQuartile", "median", "firstQuartile", "% above 15x")
+@
+
+<<summary_table,echo=FALSE,results=tex>>=
+print(xtable(summary.table, caption = "Coverage Summary"))
+@
+
+\section{Proportion of Loci with X Coverage}
+  Here we show the proportion of loci with at least X number of reads covering that loci, aggregated over all bases of the reference genome. This goes towards answering the following question: What proportion of my bases are well-powered to discover SNPs? In the following plot and table, a coverage of 4, for example, indicates the proportion of all the loci that have 4 or more reads aligned to that location. The plot provides a graphical overview of the proportions, while the table is provided for exact values.
+
+<<prepare_cumulative>>=
+cumulative.coverage <- read.table(cumulative.proportions.file, sep = "\t", header = T, fill = TRUE)
+cumulative.coverage <- data.frame(t(cumulative.coverage[2:length(cumulative.coverage)]))
+top.cumulative.coverage <-cumulative.coverage[1:which.min(cumulative.coverage[,1]),]
+top.cumulative.coverage.df <- data.frame(0:(length(top.cumulative.coverage) - 1), top.cumulative.coverage)
+colnames(top.cumulative.coverage.df) <- c("Coverage", "Proportion of Loci")
+@
+
+\begin{figure}[!htbp]
+\begin{center}
+<<label=fig1,fig=TRUE,echo=FALSE>>=
+plot(0:(length(top.cumulative.coverage) - 1), top.cumulative.coverage, xlab = "Coverage", ylab = "Proportion of Loci")
+@
+\end{center}
+\caption{Proportion of loci with >= X coverage, aggregated over all bases}
+\label{fig:one}
+\end{figure}
+\FloatBarrier
+<<cumulative_coverage,echo=FALSE,results=tex>>=
+print(xtable(top.cumulative.coverage.df, caption = "Cumulative Coverage"), include.rownames = FALSE)
+@
+\FloatBarrier
+
+\section{Number of Loci with X Coverage}
+<<prepare_stats>>=
+sample.stats <- read.table(stats.file, sep = "\t", header = TRUE, fill = TRUE)
+sample.stats <- sample.stats[2:length(sample.stats)]
+top.sample.stats <- data.frame(0:40, t(sample.stats)[1:41])
+colnames(top.sample.stats) <- c("X coverage", "Number of Loci")
+@
+
+We can also look at the total number of Loci with specific coverage levels. Figure~\ref{fig:two} shows the total number of loci with particular amounts of coverage over all bases. A table of this data is also provided for reference. The total number of loci with 0 coverage is \Sexpr{top.sample.stats[1,2]} or \Sexpr{round((top.sample.stats[1,2] / interval.size) * 100, digits = 2)} percent.
+
+\begin{figure}[!htbp]
+\begin{center}
+<<label=fig3,fig=TRUE,echo=FALSE>>=
+plot(top.sample.stats, type = "l", xlab = "X coverage", ylab = "Number of Loci")
+@
+\end{center}
+\caption{Number of loci with X coverage, aggregated over all bases}
+\label{fig:two}
+\end{figure}
+\FloatBarrier
+
+<<stat_coverage,echo=FALSE,results=tex>>=
+print(xtable(top.sample.stats, caption = "Number of Loci with Specific Coverages"), include.rownames = FALSE)
+@
+\FloatBarrier
+\end{document} 
