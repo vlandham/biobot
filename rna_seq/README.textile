@@ -1,0 +1,19 @@
+h1. Basic RNA-seq analysis for expression values in samples
+
+h2. What does it do
+
+h3. Basic alignment and RPKM extraction
+
+* @align.rb@ - Script for automatically running TopHat on a number of fastq.gz files
+* @cufflinks_run.rb@ - Run cufflinks on a number of Bam files
+* @counter.rb@ - Script for automatically generating multi-read numbers using @count_sequences.rb@ and @count_multis.rb@
+* @coverage.rb@ - Runs @coverageBed@ on a series of Bam files
+* @extract_genes.rb@ - Helper function to pull out gene names from a bed file. Output is used in the R based analysis.
+* @sample_report.rb@ - Helper class to pull out information from a Sample_Report.csv file
+
+h3. Analysis tools
+
+* @R/uxon_coverage_analysis.R@ - Performs coverage analysis at the exon and gene level
+* @R/rpkm_coverage_analysis.R@ - Performs rpkm analysis between samples
+* @R/spikein_analysis.R@ - Rough spike-in analysis for RNA-seq spikeins
+
