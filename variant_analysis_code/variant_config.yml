@@ -1,0 +1,11 @@
+reference: "/scratch/jfv/gunther_snp_2/WS220/Sequence/WholeGenomeFasta/genome.fa"
+recalibrate: false
+verbose: true
+annotate: "WS220.65"
+cores: 8
+gatk: "/n/site/inst/Linux-x86_64/bioinfo/GATK/GenomeAnalysisTK.jar"
+snpeff: "/n/site/inst/Linux-x86_64/bioinfo/stage/snpeff/snpEff_2_0_5d/snpEff.jar"
+snpeff_config: "/n/site/inst/Linux-x86_64/bioinfo/stage/snpeff/snpEff_2_0_5d/snpEff.config"
+samtools: "/n/site/inst/Linux-x86_64/bioinfo/bin/samtools"
+intervals: "/scratch/jfv/gunther_snp_2/region_of_interest.intervals"
+steps: [check_input, setup, realign, call_snps, call_indels]

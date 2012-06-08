@@ -1,0 +1,5 @@
+reference: "/scratch/jfv/gunther_snp_2/WS220/Sequence/BWAIndex/genome.fa"
+verbose: true
+samtools: "/n/site/inst/Linux-x86_64/bioinfo/bin/samtools"
+bwa: "/n/projects/jfv/tools/bin/bwa"
+picard: "/n/site/inst/Linux-x86_64/bioinfo/picard/current"
