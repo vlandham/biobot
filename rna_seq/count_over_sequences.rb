@@ -16,11 +16,15 @@ end
 data.each do |name, data|
   overrep_data = data["Overrepresented sequences"]
   total = 0.0
+  tru_total = 0.0
   overrep_data.each do |overrep|
     per = overrep["Percentage"].to_f
     total += per
+    if overrep["Possible Source"] =~ /TruSeq/
+      tru_total += per
+    end
   end
 
-  puts "#{name}\t#{total}"
+  puts "#{name}\t#{total}\t#{tru_total}"
 end
 

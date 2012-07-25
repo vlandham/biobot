@@ -46,7 +46,7 @@ class FastqcReader
 
   def get_fastqcs_data(dirname)
     fastqc_data_files = Dir.glob(File.join(dirname, "*_fastqc", "fastqc_data.txt"))
-    puts "Found: #{fastqc_data_files.size} fastqc directories"
+    # puts "Found: #{fastqc_data_files.size} fastqc directories"
 
     data = {}
 
