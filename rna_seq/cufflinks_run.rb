@@ -14,7 +14,7 @@ end
 REFERENCE = "/n/data1/genomes/bowtie-index/mm9/mm9.fa"
 GTF = "/n/data1/genomes/bowtie-index/mm9/Ens_63/mm9.Ens_63.gtf"
 
-CUFFLINKS_BIN = "/n/site/inst/Linux-x86_64/bioinfo/cufflinks/cufflinks-1.3.0.Linux_x86_64/cufflinks"
+CUFFLINKS_BIN = "/n/site/inst/Linux-x86_64/bioinfo/stowers.bio.brew/stage/cufflinks/cufflinks_2.0.2/cufflinks"
 
 # bam files are assumed to be in their own sub-directory - as would be the case from running align.rb
 # bam file names are probably all the same (tophat) and so we will use sub-directory folder to 

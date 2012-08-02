@@ -6,6 +6,7 @@ COUNT_SEQ = File.join(File.dirname(__FILE__),"count_sequences.rb")
 COUNT_MULTI = File.join(File.dirname(__FILE__), "count_multis.rb")
 
 require 'sample_report'
+require 'parallel'
 
 starting_dir_name = ARGV[0]
 bam_files = Dir.glob(File.expand_path(File.join(starting_dir_name, "**", "*.bam")))
@@ -14,7 +15,7 @@ bam_files = Dir.glob(File.expand_path(File.join(starting_dir_name, "**", "*.bam"
 fc_id = File.basename(starting_dir_name)
 
 
-bam_files.each do |bam_file|
+Parallel.each(bam_files, :in_processes => 4) do |bam_file|
   output_dir_name = File.dirname(bam_file)
 
   command = "mkdir -p #{File.join(output_dir_name, "counts")}"

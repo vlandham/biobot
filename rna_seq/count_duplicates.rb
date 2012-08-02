@@ -22,7 +22,7 @@ bam_files.each do |bam_file|
 
   command = "#{JAVA} INPUT=#{bam_file} OUTPUT=#{output_filename} METRICS_FILE=#{metrics_file}"
   puts command
-  # system(command)
+  system(command)
 end
 
 
